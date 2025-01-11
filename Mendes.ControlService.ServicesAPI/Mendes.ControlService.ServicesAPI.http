@@ -1,6 +1,0 @@
-@Mendes.ControlService.ServicesAPI_HostAddress = http://localhost:5022
-
-GET {{Mendes.ControlService.ServicesAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
