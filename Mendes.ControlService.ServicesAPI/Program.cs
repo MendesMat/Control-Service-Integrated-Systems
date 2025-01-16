@@ -1,7 +1,12 @@
+using Mendes.ControlService.ManagementAPI.Interfaces;
+using Mendes.ControlService.ManagementAPI.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+builder.Services.AddScoped(typeof(ICustomerService<,,,,>), typeof(CustomerService<,,,,>));
 
 builder.Services.AddSwaggerGen(options =>
 {

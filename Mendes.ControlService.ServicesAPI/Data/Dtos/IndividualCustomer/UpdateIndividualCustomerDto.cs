@@ -1,11 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Mendes.ControlService.ManagementAPI.Abstracts;
 
 namespace Mendes.ControlService.ManagementAPI.Data.Dtos.IndividualCustomer;
 
-public class UpdateIndividualCustomerDto
+public class UpdateIndividualCustomerDto : CustomerDtoBase
 {
-    [Required]
-    public int Id { get; set; }
-    public string Cpf { get; set; }
-    public string FullName { get; set; }
+    public string? Cpf { get; set; }
+    public string? FullName { get; set; }
 }
