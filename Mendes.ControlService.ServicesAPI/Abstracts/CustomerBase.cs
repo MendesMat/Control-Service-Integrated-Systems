@@ -2,6 +2,11 @@
 
 namespace Mendes.ControlService.ManagementAPI.Abstracts;
 
+/// <summary>
+/// Classe base para representar um cliente no sistema.
+/// Contém informações essenciais como nome, contatos e endereço.
+/// </summary>
+
 public abstract class CustomerBase
 {
     [Key]

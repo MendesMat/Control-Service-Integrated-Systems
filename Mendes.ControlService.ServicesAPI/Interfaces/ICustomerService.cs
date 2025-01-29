@@ -1,6 +1,4 @@
-﻿using Mendes.ControlService.ManagementAPI.Abstracts;
-
-namespace Mendes.ControlService.ManagementAPI.Interfaces;
+﻿namespace Mendes.ControlService.ManagementAPI.Interfaces;
 
 public interface ICustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
 {

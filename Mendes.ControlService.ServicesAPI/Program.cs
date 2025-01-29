@@ -1,35 +1,25 @@
-using Mendes.ControlService.ManagementAPI.Data.Context;
+using Mendes.ControlService.ManagementAPI.Config;
 using Mendes.ControlService.ManagementAPI.Interfaces;
-using Mendes.ControlService.ManagementAPI.Profiles;
 using Mendes.ControlService.ManagementAPI.Repositories;
 using Mendes.ControlService.ManagementAPI.Services;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Adiciona os serviços ao container utilizando as configurações da pasta Config
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<ManagementContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Configuração do banco de dados
+builder.Services.AddDatabaseConfiguration(builder.Configuration);
 
+// Configuração do AutoMapper
+builder.Services.AddAutoMapperConfiguration();
 
-builder.Services.AddAutoMapper(typeof(CustomerProfile));
+// Configuração do Swagger
+builder.Services.AddSwaggerConfiguration();
 
+// Adiciona repositórios e serviços
 builder.Services.AddScoped(typeof(ICustomerService<,,,>), typeof(CustomerService<,,,>));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(CustomersRepository<>));
-
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-    {
-        Title = "Management API",
-        Version = "v1",
-        Description = "API para gerenciamento de clientes e serviços"
-    });
-
-    options.SchemaGeneratorOptions.SupportNonNullableReferenceTypes = true;
-});
 
 var app = builder.Build();
 
@@ -40,9 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

@@ -1,7 +1,11 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
-using System.Text.Json.Serialization;
 
 namespace Mendes.ControlService.ManagementAPI.Data.Dtos;
+
+/// <summary>
+/// DTO (Data Transfer Object) para criação de um cliente.
+/// Contém as propriedades necessárias para criar um cliente individual ou de empresa.
+/// </summary>
 
 public class CreateCustomerDto : CustomerDtoBase
 {

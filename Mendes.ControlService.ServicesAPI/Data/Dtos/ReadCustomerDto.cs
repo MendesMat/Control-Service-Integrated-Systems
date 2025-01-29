@@ -1,7 +1,11 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
-using System.Text.Json.Serialization;
 
 namespace Mendes.ControlService.ManagementAPI.Data.Dtos;
+
+/// <summary>
+/// DTO (Data Transfer Object) para leitura de dados de um cliente.
+/// Contém as propriedades necessárias para exibir as informações de um cliente individual ou de empresa.
+/// </summary>
 
 public class ReadCustomerDto : CustomerDtoBase
 {

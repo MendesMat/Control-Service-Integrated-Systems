@@ -3,13 +3,15 @@ using Mendes.ControlService.ManagementAPI.Data.Dtos;
 using Mendes.ControlService.ManagementAPI.Models;
 namespace Mendes.ControlService.ManagementAPI.Profiles;
 
+/// <summary>
+/// Perfil de mapeamento para os clientes (individuais e empresas).
+/// Utiliza AutoMapper para definir como as entidades são convertidas entre DTOs e modelos de domínio.
+/// </summary>
+
 public class CustomerProfile : Profile
 {
     public CustomerProfile()
     {
-        // Teste sem e veja se tem necessidade se update estiver sobrescrevendo com null
-        //AllowNullDestinationValues = false;
-
         #region Individual Customers
         // Create Individual
         CreateMap<CreateCustomerDto, IndividualCustomer>()

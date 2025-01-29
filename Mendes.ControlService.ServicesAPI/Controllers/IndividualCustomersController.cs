@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Mendes.ControlService.ManagementAPI.Controllers;
 
+/// <summary>
+/// Controlador para gerenciamento de clientes individuais.
+/// Herda de CustomerControllerBase com tipos específicos para clientes individuais.
+/// </summary>
+
 [ApiController]
 [Route("managementApi/[controller]")]
 public class IndividualCustomersController : CustomerControllerBase

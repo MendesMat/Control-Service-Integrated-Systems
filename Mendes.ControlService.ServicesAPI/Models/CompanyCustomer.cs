@@ -2,6 +2,11 @@
 
 namespace Mendes.ControlService.ManagementAPI.Models;
 
+/// <summary>
+/// Representa um cliente do tipo empresa.
+/// Herda as propriedades de <see cref="CustomerBase"/> e adiciona informações específicas de empresas.
+/// </summary>
+
 public class CompanyCustomer : CustomerBase
 {
     public string? LegalName { get; set; }

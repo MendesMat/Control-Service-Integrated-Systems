@@ -2,6 +2,11 @@
 
 namespace Mendes.ControlService.ManagementAPI.Abstracts;
 
+/// <summary>
+/// Classe base abstrata para objetos de transferência de dados (DTO) de clientes.
+/// Contém informações comuns a todos os DTOs de clientes.
+/// </summary>
+
 public abstract class CustomerDtoBase
 {
     [Key]
