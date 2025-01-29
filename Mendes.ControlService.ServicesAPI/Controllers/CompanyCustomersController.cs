@@ -8,18 +8,18 @@ namespace Mendes.ControlService.ManagementAPI.Controllers;
 
 [ApiController]
 [Route("managementApi/[controller]")]
-public class IndividualCustomersController : CustomerControllerBase
-    <IndividualCustomer,
+public class CompanyCustomersController : CustomerControllerBase
+    <CompanyCustomer,
     CreateCustomerDto,
     ReadCustomerDto,
     UpdateCustomerDto>
 {
-    public IndividualCustomersController(ICustomerService
-        <IndividualCustomer, 
-        CreateCustomerDto, 
-        ReadCustomerDto, 
-        UpdateCustomerDto> 
-        customerService) 
+    public CompanyCustomersController(ICustomerService
+        <CompanyCustomer,
+        CreateCustomerDto,
+        ReadCustomerDto,
+        UpdateCustomerDto>
+        customerService)
         : base(customerService)
     { }
 }

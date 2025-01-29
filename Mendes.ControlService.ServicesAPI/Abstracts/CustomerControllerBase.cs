@@ -1,18 +1,18 @@
-﻿using Mendes.ControlService.ManagementAPI.Interfaces;
+﻿using Mendes.ControlService.ManagementAPI.Data.Dtos;
+using Mendes.ControlService.ManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mendes.ControlService.ManagementAPI.Abstracts;
 
 public abstract class CustomerControllerBase
-    <TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto> : ControllerBase
-    where TCustomer : CustomerBase
-    where TReadDto : CustomerDtoBase
+    <TCustomer, TCreateDto, TReadDto, TUpdateDto> : ControllerBase
+    where TReadDto : ReadCustomerDto
 {
     private readonly ICustomerService
-        <TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto> _customerService;
+        <TCustomer, TCreateDto, TReadDto, TUpdateDto> _customerService;
 
     protected CustomerControllerBase(ICustomerService
-        <TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto> customerService)
+        <TCustomer, TCreateDto, TReadDto, TUpdateDto> customerService)
     {
         _customerService = customerService;
     }
@@ -21,8 +21,8 @@ public abstract class CustomerControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     public virtual IActionResult Post([FromBody] TCreateDto dto)
     {
-        var result = _customerService.Post(dto);
-        return CreatedAtAction(nameof(Post), new { id = result.Id }, result);
+        var customer = _customerService.Post(dto);
+        return CreatedAtAction(nameof(Put), new { id = customer.Id }, customer);
     }
 
     [HttpPut("{id}")]
@@ -30,8 +30,8 @@ public abstract class CustomerControllerBase
     {
         try
         {
-            var result = _customerService.Put(id, dto);
-            return Ok(result);
+            var customer = _customerService.Put(id, dto);
+            return Ok(customer);
         }
         catch (KeyNotFoundException ex)
         {

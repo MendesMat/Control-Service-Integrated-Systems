@@ -1,5 +1,4 @@
-﻿using Mendes.ControlService.ManagementAPI.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Mendes.ControlService.ManagementAPI.Abstracts;
 
@@ -8,6 +7,8 @@ public abstract class CustomerBase
     [Key]
     [Required]
     public int Id { get; set; }
+    [Required]
+    public string? Name { get; set; }
 
     public string? Telephone1 { get; set; }
     public string? Telephone2 { get; set; }
@@ -20,7 +21,4 @@ public abstract class CustomerBase
     public string? Address { get; set; }
     public int Number { get; set; }
     public string? Complement { get; set; }
-
-    public CustomerBase? PayingEntity { get; set; }
-    public List<Proposal>? Proposals { get; set; }
 }

@@ -1,6 +1,8 @@
-﻿namespace Mendes.ControlService.ManagementAPI.Interfaces;
+﻿using Mendes.ControlService.ManagementAPI.Abstracts;
 
-public interface ICustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto>
+namespace Mendes.ControlService.ManagementAPI.Interfaces;
+
+public interface ICustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
 {
     TReadDto Post(TCreateDto dto);
     TReadDto Get(int id);

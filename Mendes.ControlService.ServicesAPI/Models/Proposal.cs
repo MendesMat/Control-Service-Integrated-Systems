@@ -1,4 +1,5 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
+using Mendes.ControlService.ManagementAPI.Interfaces;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mendes.ControlService.ManagementAPI.Models;
@@ -11,5 +12,5 @@ public class Proposal
 
     [Required]
     public int CustomerId { get; set; }
-    public CustomerBase? Customer { get; set; }
+    public CustomerBase? PayingEntity { get; set; }
 }

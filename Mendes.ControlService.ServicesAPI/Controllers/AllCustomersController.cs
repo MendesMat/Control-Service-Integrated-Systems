@@ -1,20 +1,19 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
+using Mendes.ControlService.ManagementAPI.Data.Dtos;
 using Mendes.ControlService.ManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mendes.ControlService.ManagementAPI.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
-public class GlobalCustomersController
-    <TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto> : ControllerBase
-    where TCustomer : CustomerBase
+[Route("management/[controller]")]
+public class AllCustomersController : ControllerBase
 {
     private readonly ICustomerService
-        <TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto> _customerService;
+        <CustomerBase, CreateCustomerDto, ReadCustomerDto, UpdateCustomerDto> _customerService;
 
-    public GlobalCustomersController(ICustomerService
-        <TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto> customerService)
+    public AllCustomersController(ICustomerService
+        <CustomerBase, CreateCustomerDto, ReadCustomerDto, UpdateCustomerDto> customerService)
     {
         _customerService = customerService;
     }
@@ -24,7 +23,7 @@ public class GlobalCustomersController
     {
         try
         {
-            TReadDto customer = _customerService.Get(id);
+            var customer = _customerService.Get(id);
             return Ok(customer);
         }
         catch (KeyNotFoundException)

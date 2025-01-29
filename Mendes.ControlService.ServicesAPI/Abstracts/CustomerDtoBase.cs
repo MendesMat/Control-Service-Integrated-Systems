@@ -2,11 +2,13 @@
 
 namespace Mendes.ControlService.ManagementAPI.Abstracts;
 
-public class CustomerDtoBase
+public abstract class CustomerDtoBase
 {
     [Key]
     [Required]
-    public int Id { get; }
+    public int Id { get; set; }
+    [Required]
+    public string? Name { get; set; }
 
     public string? Telephone1 { get; set; }
     public string? Telephone2 { get; set; }
@@ -17,8 +19,6 @@ public class CustomerDtoBase
 
     public string? Cep { get; set; }
     public string? Address { get; set; }
-    public int? Number { get; set; }
+    public int Number { get; set; }
     public string? Complement { get; set; }
-
-    public CustomerBase? PayingEntity { get; set; }
 }

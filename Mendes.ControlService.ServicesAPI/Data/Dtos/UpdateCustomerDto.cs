@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Mendes.ControlService.ManagementAPI.Data.Dtos;
 
-public class ReadCustomerDto : CustomerDtoBase
+public class UpdateCustomerDto : CustomerDtoBase
 {
     // IndividualCustomer Properties
     public string? Cpf { get; set; }

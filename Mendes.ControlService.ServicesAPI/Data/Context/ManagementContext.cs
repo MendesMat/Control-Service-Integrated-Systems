@@ -12,15 +12,12 @@ public class ManagementContext : DbContext
     }
 
     public DbSet<CustomerBase> Customers { get; set; }
-    public DbSet<IndividualCustomer> IndividualCustomers { get; set; }
-    public DbSet<CompanyCustomer> CompanyCustomers { get; set; }
-    public DbSet<Proposal> Proposals { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<Proposal>()
-            .HasOne(proposal => proposal.Customer)
-            .WithMany(customer => customer.Proposals)
-            .HasForeignKey(proposal => proposal.CustomerId);
+        builder.Entity<CustomerBase>()
+        .HasDiscriminator<string>("Type")
+        .HasValue<IndividualCustomer>("Individual")
+        .HasValue<CompanyCustomer>("Company");
     }
 }

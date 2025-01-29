@@ -1,11 +1,13 @@
-﻿namespace Mendes.ControlService.ManagementAPI.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
 
-public interface IRepository<T> where T : class
+namespace Mendes.ControlService.ManagementAPI.Interfaces;
+
+public interface IRepository<T>
 {
     void Post(T entity);
 
     T? Get(int id);
-    IQueryable<T> GetAll();
+    IQueryable<T> GetAll([FromQuery] int skip, [FromQuery] int take);
 
     void Put(T entity);
     void Delete(T entity);

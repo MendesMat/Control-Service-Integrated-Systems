@@ -4,12 +4,17 @@ using Mendes.ControlService.ManagementAPI.Interfaces;
 
 namespace Mendes.ControlService.ManagementAPI.Services;
 
-public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto>
-    : ICustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto, TDeleteDto>
+public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
+    : ICustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
     where TCustomer : CustomerBase
 {
     private readonly IRepository<TCustomer> _customersRepository;
     private readonly IMapper _mapper;
+
+
+    // Query pagination
+    private int skip = 0;
+    private int take = 50;
 
     public CustomerService(IRepository<TCustomer> customersRepository, IMapper mapper)
     {
@@ -27,18 +32,22 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto, TDelet
 
     public TReadDto Get(int id)
     {
-        TCustomer? customer = _customersRepository.Get(id);
+        var customer = _customersRepository.Get(id);
 
         if (customer == null)
             throw new KeyNotFoundException($"Customer with ID {id} not found.");
 
-        return _mapper.Map<TReadDto>(customer);
+        var result = _mapper.Map<TReadDto>(customer);
+
+        return result;
     }
 
     public IEnumerable<TReadDto> GetAll()
     {
-        IQueryable<TCustomer> customers = _customersRepository.GetAll();
-        return _mapper.Map<IEnumerable<TReadDto>>(customers);
+        var customers = _customersRepository.GetAll(skip, take).ToList();
+        var result = _mapper.Map<IEnumerable<TReadDto>>(customers);
+
+        return result;
     }
 
     public TReadDto Put(int id, TUpdateDto dto)
@@ -56,7 +65,7 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto, TDelet
 
     public void Delete(int id)
     {
-        TCustomer? customer = _customersRepository.Get(id);
+        var customer = _customersRepository.Get(id);
 
         if(customer == null)
             throw new KeyNotFoundException($"Customer with ID {id} not found.");
