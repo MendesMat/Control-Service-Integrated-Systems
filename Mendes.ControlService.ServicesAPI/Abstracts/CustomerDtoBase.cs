@@ -10,10 +10,9 @@ namespace Mendes.ControlService.ManagementAPI.Abstracts;
 public abstract class CustomerDtoBase
 {
     [Key]
-    [Required]
     public int Id { get; set; }
     [Required]
-    public string? Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     public string? Telephone1 { get; set; }
     public string? Telephone2 { get; set; }

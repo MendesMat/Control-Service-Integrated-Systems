@@ -1,6 +1,6 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
 
-namespace Mendes.ControlService.ManagementAPI.Models;
+namespace Mendes.ControlService.ManagementAPI.Models.Customers;
 
 /// <summary>
 /// Representa um cliente do tipo empresa.

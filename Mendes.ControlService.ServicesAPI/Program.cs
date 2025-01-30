@@ -1,7 +1,11 @@
+using FluentValidation;
 using Mendes.ControlService.ManagementAPI.Config;
 using Mendes.ControlService.ManagementAPI.Interfaces;
+using Mendes.ControlService.ManagementAPI.Middlewares;
+using Mendes.ControlService.ManagementAPI.Models.Customers;
 using Mendes.ControlService.ManagementAPI.Repositories;
 using Mendes.ControlService.ManagementAPI.Services;
+using Mendes.ControlService.ManagementAPI.Validations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +24,8 @@ builder.Services.AddSwaggerConfiguration();
 // Adiciona repositórios e serviços
 builder.Services.AddScoped(typeof(ICustomerService<,,,>), typeof(CustomerService<,,,>));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(CustomersRepository<>));
+builder.Services.AddScoped<IValidator<IndividualCustomer>, IndividualCustomerValidator>();
+builder.Services.AddScoped<IValidator<CompanyCustomer>, CompanyCustomerValidator>();
 
 var app = builder.Build();
 

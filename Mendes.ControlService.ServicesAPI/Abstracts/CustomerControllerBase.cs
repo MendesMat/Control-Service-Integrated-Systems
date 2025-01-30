@@ -1,6 +1,7 @@
 ﻿using Mendes.ControlService.ManagementAPI.Data.Dtos;
 using Mendes.ControlService.ManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mendes.ControlService.ManagementAPI.Abstracts;
 
@@ -45,10 +46,18 @@ public abstract class CustomerControllerBase
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public virtual IActionResult Post([FromBody] TCreateDto dto)
     {
-        var customer = _customerService.Post(dto);
-        return CreatedAtAction(nameof(Put), new { id = customer.Id }, customer);
+        try
+        {
+            var customer = _customerService.Post(dto);
+            return CreatedAtAction(nameof(Put), new { id = customer.Id }, customer);
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(new { message = "Erro de validação", errors = ex.Message });
+        }      
     }
 
     /// <summary>

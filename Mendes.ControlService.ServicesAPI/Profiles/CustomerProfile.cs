@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Mendes.ControlService.ManagementAPI.Data.Dtos;
-using Mendes.ControlService.ManagementAPI.Models;
+using Mendes.ControlService.ManagementAPI.Models.Customers;
 namespace Mendes.ControlService.ManagementAPI.Profiles;
 
 /// <summary>

@@ -1,6 +1,7 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
+using System.ComponentModel.DataAnnotations;
 
-namespace Mendes.ControlService.ManagementAPI.Models;
+namespace Mendes.ControlService.ManagementAPI.Models.Customers;
 
 /// <summary>
 /// Representa um cliente do tipo individual.
@@ -9,5 +10,6 @@ namespace Mendes.ControlService.ManagementAPI.Models;
 
 public class IndividualCustomer : CustomerBase
 {
+    [StringLength(11, MinimumLength = 11)]
     public string? Cpf { get; set; }
 }

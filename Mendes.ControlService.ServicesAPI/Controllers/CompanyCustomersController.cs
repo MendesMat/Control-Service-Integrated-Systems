@@ -1,7 +1,7 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
 using Mendes.ControlService.ManagementAPI.Data.Dtos;
 using Mendes.ControlService.ManagementAPI.Interfaces;
-using Mendes.ControlService.ManagementAPI.Models;
+using Mendes.ControlService.ManagementAPI.Models.Customers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mendes.ControlService.ManagementAPI.Controllers;

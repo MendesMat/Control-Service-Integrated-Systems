@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Mendes.ControlService.ManagementAPI.Models;
 using Mendes.ControlService.ManagementAPI.Abstracts;
+using Mendes.ControlService.ManagementAPI.Models.Customers;
 
 namespace Mendes.ControlService.ManagementAPI.Data.Context;
 

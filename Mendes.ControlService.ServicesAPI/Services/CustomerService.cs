@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Mendes.ControlService.ManagementAPI.Abstracts;
 using Mendes.ControlService.ManagementAPI.Interfaces;
+using Mendes.ControlService.ManagementAPI.Models.Customers;
 
 namespace Mendes.ControlService.ManagementAPI.Services;
 
@@ -20,15 +22,23 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
     private readonly IRepository<TCustomer> _customersRepository;
     private readonly IMapper _mapper;
 
+    private readonly IValidator<IndividualCustomer> _individualValidator;
+    private readonly IValidator<CompanyCustomer> _companyValidator;
 
     // Variáveis de paginação para consulta
     private int skip = 0;
     private int take = 50;
 
-    public CustomerService(IRepository<TCustomer> customersRepository, IMapper mapper)
+    public CustomerService(
+        IRepository<TCustomer> customersRepository, 
+        IMapper mapper,
+        IValidator<IndividualCustomer> individualValidator,
+        IValidator<CompanyCustomer> companyValidator)
     {
         _customersRepository = customersRepository;
         _mapper = mapper;
+        _individualValidator = individualValidator;
+        _companyValidator = companyValidator;
     }
 
     /// <summary>
@@ -41,8 +51,9 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
     public TReadDto Post(TCreateDto dto)
     {
         var customer = _mapper.Map<TCustomer>(dto);
-        _customersRepository.Post(customer);
+        ValidateCustomer(customer);
 
+        _customersRepository.Post(customer);
         return _mapper.Map<TReadDto>(customer);
     }
 
@@ -94,8 +105,9 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
             throw new KeyNotFoundException($"Customer with ID {id} not found.");
 
         _mapper.Map(dto, customer);
-        _customersRepository.Put(customer);
+        ValidateCustomer(customer);
 
+        _customersRepository.Put(customer);
         return _mapper.Map<TReadDto>(customer);
     }
 
@@ -113,5 +125,27 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
             throw new KeyNotFoundException($"Customer with ID {id} not found.");
 
         _customersRepository.Delete(customer);
+    }
+
+    /// <summary>
+    /// Valida um cliente de acordo com seu tipo, utilizando validadores específicos.
+    /// </summary>
+
+    private void ValidateCustomer(TCustomer customer)
+    {
+        IValidator<TCustomer> validator = customer switch
+        {
+            IndividualCustomer => (IValidator<TCustomer>) _individualValidator,
+            CompanyCustomer => (IValidator<TCustomer>) _companyValidator,
+            _ => throw new InvalidOperationException()
+        };
+
+        var validationResult = validator.Validate(customer);
+
+        if (!validationResult.IsValid)
+        {
+            var errors = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
+            throw new ValidationException($"Erro de validação: {errors}");
+        }
     }
 }
