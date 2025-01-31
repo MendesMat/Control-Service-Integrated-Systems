@@ -1,6 +1,6 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
 
-namespace Mendes.ControlService.ManagementAPI.Data.Dtos;
+namespace Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 
 /// <summary>
 /// DTO (Data Transfer Object) para criação de um cliente.

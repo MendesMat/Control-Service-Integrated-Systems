@@ -1,13 +1,13 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
 
-namespace Mendes.ControlService.ManagementAPI.Data.Dtos;
+namespace Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 
 /// <summary>
-/// DTO (Data Transfer Object) para atualização de dados de um cliente.
-/// Contém as propriedades necessárias para atualizar as informações de um cliente individual ou de empresa.
+/// DTO (Data Transfer Object) para leitura de dados de um cliente.
+/// Contém as propriedades necessárias para exibir as informações de um cliente individual ou de empresa.
 /// </summary>
 
-public class UpdateCustomerDto : CustomerDtoBase
+public class ReadCustomerDto : CustomerDtoBase
 {
     // IndividualCustomer Properties
     public string? Cpf { get; set; }

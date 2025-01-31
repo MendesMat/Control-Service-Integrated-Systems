@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Mendes.ControlService.ManagementAPI.Abstracts;
-using Mendes.ControlService.ManagementAPI.Models.Customers;
+using Mendes.ControlService.ManagementAPI.Models;
 
 namespace Mendes.ControlService.ManagementAPI.Data.Context;
 
@@ -22,6 +22,7 @@ public class ManagementContext : DbContext
     /// </summary>
 
     public DbSet<CustomerBase> Customers { get; set; }
+    public DbSet<Proposal> Proposals { get; set; }
 
     /// <summary>
     /// Configuração do modelo de dados utilizando Fluent API.
@@ -35,5 +36,17 @@ public class ManagementContext : DbContext
         .HasDiscriminator<string>("Type")
         .HasValue<IndividualCustomer>("Individual")
         .HasValue<CompanyCustomer>("Company");
+
+        builder.Entity<Proposal>()
+            .HasOne(p => p.Customer)
+            .WithMany(c => c.Proposals)
+            .HasForeignKey(p => p.CustomerId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Proposal>()
+            .HasOne(p => p.PayingEntity)
+            .WithMany()
+            .HasForeignKey(p => p.PayingEntityId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

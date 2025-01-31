@@ -2,7 +2,7 @@
 using FluentValidation;
 using Mendes.ControlService.ManagementAPI.Abstracts;
 using Mendes.ControlService.ManagementAPI.Interfaces;
-using Mendes.ControlService.ManagementAPI.Models.Customers;
+using Mendes.ControlService.ManagementAPI.Models;
 
 namespace Mendes.ControlService.ManagementAPI.Services;
 
@@ -16,27 +16,19 @@ namespace Mendes.ControlService.ManagementAPI.Services;
 /// <typeparam name="TUpdateDto">Tipo do DTO usado para atualização de um cliente.</typeparam>
 
 public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
-    : ICustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
+    : ServiceBase<TCustomer, TCreateDto, TReadDto, TUpdateDto>
     where TCustomer : CustomerBase
 {
-    private readonly IRepository<TCustomer> _customersRepository;
-    private readonly IMapper _mapper;
-
     private readonly IValidator<IndividualCustomer> _individualValidator;
     private readonly IValidator<CompanyCustomer> _companyValidator;
-
-    // Variáveis de paginação para consulta
-    private int skip = 0;
-    private int take = 50;
 
     public CustomerService(
         IRepository<TCustomer> customersRepository, 
         IMapper mapper,
         IValidator<IndividualCustomer> individualValidator,
         IValidator<CompanyCustomer> companyValidator)
+        : base(customersRepository, mapper)
     {
-        _customersRepository = customersRepository;
-        _mapper = mapper;
         _individualValidator = individualValidator;
         _companyValidator = companyValidator;
     }
@@ -44,49 +36,16 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
     /// <summary>
     /// Cria um novo cliente e retorna um DTO com os dados do cliente criado.
     /// </summary>
-    /// <param name="dto">O DTO com as informações do novo cliente.</param>
+    /// <param name="dto">A entidade com as informações do novo cliente.</param>
     /// <returns>O DTO representando o cliente criado.</returns>
     /// <exception cref="KeyNotFoundException">Se o cliente não for encontrado na operação de leitura.</exception>
 
-    public TReadDto Post(TCreateDto dto)
+    public override TReadDto Post(TCreateDto dto)
     {
         var customer = _mapper.Map<TCustomer>(dto);
         ValidateCustomer(customer);
 
-        _customersRepository.Post(customer);
-        return _mapper.Map<TReadDto>(customer);
-    }
-
-    /// <summary>
-    /// Obtém um cliente por seu ID e retorna um DTO com os dados do cliente.
-    /// </summary>
-    /// <param name="id">O ID do cliente a ser retornado.</param>
-    /// <returns>O DTO com as informações do cliente.</returns>
-    /// <exception cref="KeyNotFoundException">Se o cliente não for encontrado.</exception>
-
-    public TReadDto Get(int id)
-    {
-        var customer = _customersRepository.Get(id);
-
-        if (customer == null)
-            throw new KeyNotFoundException($"Customer with ID {id} not found.");
-
-        var result = _mapper.Map<TReadDto>(customer);
-
-        return result;
-    }
-
-    /// <summary>
-    /// Obtém todos os clientes com paginação.
-    /// </summary>
-    /// <returns>Uma lista de DTOs representando os clientes.</returns>
-
-    public IEnumerable<TReadDto> GetAll()
-    {
-        var customers = _customersRepository.GetAll(skip, take).ToList();
-        var result = _mapper.Map<IEnumerable<TReadDto>>(customers);
-
-        return result;
+        return base.Post(dto);
     }
 
     /// <summary>
@@ -97,34 +56,17 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
     /// <returns>O DTO com os dados do cliente após a atualização.</returns>
     /// <exception cref="KeyNotFoundException">Se o cliente não for encontrado.</exception>
 
-    public TReadDto Put(int id, TUpdateDto dto)
+    public override TReadDto Put(int id, TUpdateDto dto)
     {
-        var customer = _customersRepository.Get(id);
+        var customer = _repository.Get(id);
 
         if (customer == null)
-            throw new KeyNotFoundException($"Customer with ID {id} not found.");
+            throw new KeyNotFoundException($"Entity with ID {id} not found.");
 
         _mapper.Map(dto, customer);
         ValidateCustomer(customer);
 
-        _customersRepository.Put(customer);
-        return _mapper.Map<TReadDto>(customer);
-    }
-
-    /// <summary>
-    /// Deleta um cliente com o ID especificado.
-    /// </summary>
-    /// <param name="id">O ID do cliente a ser deletado.</param>
-    /// <exception cref="KeyNotFoundException">Se o cliente não for encontrado.</exception>
-
-    public void Delete(int id)
-    {
-        var customer = _customersRepository.Get(id);
-
-        if(customer == null)
-            throw new KeyNotFoundException($"Customer with ID {id} not found.");
-
-        _customersRepository.Delete(customer);
+        return base.Put(id, dto);
     }
 
     /// <summary>
@@ -133,10 +75,10 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
 
     private void ValidateCustomer(TCustomer customer)
     {
-        IValidator<TCustomer> validator = customer switch
+        var validator = customer switch
         {
-            IndividualCustomer => (IValidator<TCustomer>) _individualValidator,
-            CompanyCustomer => (IValidator<TCustomer>) _companyValidator,
+            IndividualCustomer => (IValidator<TCustomer>)_individualValidator,
+            CompanyCustomer => (IValidator<TCustomer>)_companyValidator,
             _ => throw new InvalidOperationException()
         };
 
