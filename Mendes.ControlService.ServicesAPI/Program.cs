@@ -21,8 +21,8 @@ builder.Services.AddAutoMapperConfiguration();
 builder.Services.AddSwaggerConfiguration();
 
 // Adiciona repositórios e serviços
-builder.Services.AddScoped(typeof(IService<,,>), typeof(CustomerService<,,,>));
-builder.Services.AddScoped(typeof(IService<,,>), typeof(ProposalService<,,,>));
+builder.Services.AddScoped(typeof(IService<,,,>), typeof(CustomerService<,,,>));
+builder.Services.AddScoped(typeof(IService<,,,>), typeof(ProposalService<,,,>));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
 builder.Services.AddScoped<IValidator<IndividualCustomer>, IndividualCustomerValidator>();
 builder.Services.AddScoped<IValidator<CompanyCustomer>, CompanyCustomerValidator>();

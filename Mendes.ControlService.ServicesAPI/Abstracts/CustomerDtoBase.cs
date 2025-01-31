@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Mendes.ControlService.ManagementAPI.Data.Dtos.Proposal;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mendes.ControlService.ManagementAPI.Abstracts;
 
@@ -25,4 +26,6 @@ public abstract class CustomerDtoBase
     public string? Address { get; set; }
     public int Number { get; set; }
     public string? Complement { get; set; }
+
+    public List<ReadProposalDto>? Proposals { get; set; }
 }

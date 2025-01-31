@@ -19,10 +19,10 @@ public abstract class CustomerControllerBase
     where TReadDto : ReadCustomerDto
 {
     private readonly IService
-        <TCreateDto, TReadDto, TUpdateDto> _customerService;
+        <TCustomer, TCreateDto, TReadDto, TUpdateDto> _customerService;
 
     protected CustomerControllerBase(IService
-        <TCreateDto, TReadDto, TUpdateDto> customerService)
+        <TCustomer, TCreateDto, TReadDto, TUpdateDto> customerService)
     {
         _customerService = customerService;
     }

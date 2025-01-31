@@ -48,5 +48,9 @@ public class ManagementContext : DbContext
             .WithMany()
             .HasForeignKey(p => p.PayingEntityId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<Proposal>()
+            .Property(p => p.Value)
+            .HasPrecision(18, 2); // Define a precisão e escala para decimal
     }
 }

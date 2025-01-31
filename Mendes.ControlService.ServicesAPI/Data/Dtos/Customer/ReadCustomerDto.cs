@@ -1,4 +1,5 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
+using Mendes.ControlService.ManagementAPI.Data.Dtos.Proposal;
 
 namespace Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 

@@ -1,4 +1,5 @@
-﻿using Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
+﻿using Mendes.ControlService.ManagementAPI.Abstracts;
+using Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 using Mendes.ControlService.ManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,10 +15,10 @@ namespace Mendes.ControlService.ManagementAPI.Controllers;
 public class AllCustomersController : ControllerBase
 {
     private readonly IService
-        <CreateCustomerDto, ReadCustomerDto, UpdateCustomerDto> _customerService;
+        <CustomerBase, CreateCustomerDto, ReadCustomerDto, UpdateCustomerDto> _customerService;
 
     public AllCustomersController(IService
-        <CreateCustomerDto, ReadCustomerDto, UpdateCustomerDto> customerService)
+        <CustomerBase, CreateCustomerDto, ReadCustomerDto, UpdateCustomerDto> customerService)
     {
         _customerService = customerService;
     }

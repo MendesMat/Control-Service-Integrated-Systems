@@ -20,10 +20,10 @@ public class CompanyCustomersController : CustomerControllerBase
     UpdateCustomerDto>
 {
     public CompanyCustomersController(IService
-        <CreateCustomerDto,
+        <CompanyCustomer,
+        CreateCustomerDto,
         ReadCustomerDto,
         UpdateCustomerDto>
-        customerService)
-        : base(customerService)
+        customerService) : base(customerService)
     { }
 }

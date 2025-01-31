@@ -15,7 +15,7 @@ namespace Mendes.ControlService.ManagementAPI.Abstracts
     /// <typeparam name="TUpdateDto">DTO utilizado para atualizar uma entidade existente.</typeparam>
 
     public abstract class ServiceBase<TEntity, TCreateDto, TReadDto, TUpdateDto>
-        : IService<TCreateDto, TReadDto, TUpdateDto>
+        : IService<TEntity, TCreateDto, TReadDto, TUpdateDto>
         where TEntity : class
     {
         protected readonly IRepository<TEntity> _repository;
