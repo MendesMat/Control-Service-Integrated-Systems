@@ -60,7 +60,7 @@ namespace Mendes.ControlService.ManagementAPI.Abstracts
         {
             var entity = _repository.Get(id);
 
-            if (entity != null)
+            if (entity == null)
                 throw new KeyNotFoundException($"Entity with ID {id} not found.");
 
             var result = _mapper.Map<TReadDto>(entity);

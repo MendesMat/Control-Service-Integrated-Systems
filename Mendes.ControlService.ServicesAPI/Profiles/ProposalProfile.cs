@@ -13,14 +13,6 @@ public class ProposalProfile : Profile
 {
     public ProposalProfile()
     {
-        CreateMap<Proposal, ReadProposalDto>()
-            .ForMember(dto => dto.CustomerName,
-            opt => opt.MapFrom(model => model.Customer.Name))
-
-            .ForMember(dto => dto.PayingEntityName,
-            opt => opt.MapFrom(model => model.PayingEntity != null 
-            ? model.PayingEntity.Name : string.Empty));
-
         CreateMap<CreateProposalDto, Proposal>();
         CreateMap<Proposal, ReadProposalDto>();
         CreateMap<UpdateProposalDto, Proposal>();

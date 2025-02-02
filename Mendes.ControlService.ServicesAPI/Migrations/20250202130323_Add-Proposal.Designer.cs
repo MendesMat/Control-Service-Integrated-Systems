@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Mendes.ControlService.ManagementAPI.Migrations
 {
     [DbContext(typeof(ManagementContext))]
-    [Migration("20250131162259_Proposal")]
-    partial class Proposal
+    [Migration("20250202130323_Add-Proposal")]
+    partial class AddProposal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -131,24 +131,19 @@ namespace Mendes.ControlService.ManagementAPI.Migrations
             modelBuilder.Entity("Mendes.ControlService.ManagementAPI.Models.Proposal", b =>
                 {
                     b.HasOne("Mendes.ControlService.ManagementAPI.Abstracts.CustomerBase", "Customer")
-                        .WithMany("Proposals")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Mendes.ControlService.ManagementAPI.Abstracts.CustomerBase", "PayingEntity")
                         .WithMany()
                         .HasForeignKey("PayingEntityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Customer");
 
                     b.Navigation("PayingEntity");
-                });
-
-            modelBuilder.Entity("Mendes.ControlService.ManagementAPI.Abstracts.CustomerBase", b =>
-                {
-                    b.Navigation("Proposals");
                 });
 #pragma warning restore 612, 618
         }

@@ -27,6 +27,4 @@ public abstract class CustomerBase : IEntity
     public string? Address { get; set; }
     public int Number { get; set; }
     public string? Complement { get; set; }
-
-    public ICollection<Proposal> Proposals { get; set; } = new List<Proposal>();
 }

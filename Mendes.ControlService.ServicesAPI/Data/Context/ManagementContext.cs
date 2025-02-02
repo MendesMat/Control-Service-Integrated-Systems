@@ -33,21 +33,21 @@ public class ManagementContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<CustomerBase>()
-        .HasDiscriminator<string>("Type")
-        .HasValue<IndividualCustomer>("Individual")
-        .HasValue<CompanyCustomer>("Company");
+            .HasDiscriminator<string>("Type")
+            .HasValue<IndividualCustomer>("Individual")
+            .HasValue<CompanyCustomer>("Company");
 
         builder.Entity<Proposal>()
             .HasOne(p => p.Customer)
-            .WithMany(c => c.Proposals)
+            .WithMany()
             .HasForeignKey(p => p.CustomerId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.Entity<Proposal>()
             .HasOne(p => p.PayingEntity)
             .WithMany()
             .HasForeignKey(p => p.PayingEntityId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.Entity<Proposal>()
             .Property(p => p.Value)

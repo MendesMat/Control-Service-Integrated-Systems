@@ -43,7 +43,7 @@ public class CustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
     public override TReadDto Post(TCreateDto dto)
     {
         var customer = _mapper.Map<TCustomer>(dto);
-        ValidateCustomer(customer);
+        if(customer != null) ValidateCustomer(customer);
 
         return base.Post(dto);
     }

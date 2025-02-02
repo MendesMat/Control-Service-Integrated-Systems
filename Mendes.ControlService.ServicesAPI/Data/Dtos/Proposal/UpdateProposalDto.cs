@@ -9,9 +9,6 @@ namespace Mendes.ControlService.ManagementAPI.Data.Dtos.Proposal;
 
 public class UpdateProposalDto
 {
-    [Required]
-    public int CustomerId { get; set; }
-
     public int? PayingEntityId { get; set; }
 
     [Required]

@@ -5,7 +5,7 @@
 namespace Mendes.ControlService.ManagementAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class Proposal : Migration
+    public partial class AddProposal : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,14 +37,12 @@ namespace Mendes.ControlService.ManagementAPI.Migrations
                         name: "FK_Proposals_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Proposals_Customers_PayingEntityId",
                         column: x => x.PayingEntityId,
                         principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

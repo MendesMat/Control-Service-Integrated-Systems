@@ -64,7 +64,7 @@ namespace Mendes.ControlService.ManagementAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
 
                     b.HasDiscriminator<string>("Type").HasValue("CustomerBase");
 
@@ -95,7 +95,7 @@ namespace Mendes.ControlService.ManagementAPI.Migrations
 
                     b.HasIndex("PayingEntityId");
 
-                    b.ToTable("Proposals", (string)null);
+                    b.ToTable("Proposals");
                 });
 
             modelBuilder.Entity("Mendes.ControlService.ManagementAPI.Models.CompanyCustomer", b =>
@@ -128,24 +128,19 @@ namespace Mendes.ControlService.ManagementAPI.Migrations
             modelBuilder.Entity("Mendes.ControlService.ManagementAPI.Models.Proposal", b =>
                 {
                     b.HasOne("Mendes.ControlService.ManagementAPI.Abstracts.CustomerBase", "Customer")
-                        .WithMany("Proposals")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Mendes.ControlService.ManagementAPI.Abstracts.CustomerBase", "PayingEntity")
                         .WithMany()
                         .HasForeignKey("PayingEntityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("Customer");
 
                     b.Navigation("PayingEntity");
-                });
-
-            modelBuilder.Entity("Mendes.ControlService.ManagementAPI.Abstracts.CustomerBase", b =>
-                {
-                    b.Navigation("Proposals");
                 });
 #pragma warning restore 612, 618
         }

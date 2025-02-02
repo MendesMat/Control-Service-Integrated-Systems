@@ -3,7 +3,7 @@ using Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 using Mendes.ControlService.ManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Mendes.ControlService.ManagementAPI.Controllers;
+namespace Mendes.ControlService.ManagementAPI.Controllers.Customers;
 
 /// <summary>
 /// Controlador para gerenciar todos os tipos de clientes.
@@ -51,7 +51,7 @@ public class AllCustomersController : ControllerBase
     /// <returns>Retorna a lista de todos os clientes.</returns>
     /// <response code="200">Lista de clientes retornada com sucesso.</response>
     /// <response code="500">Erro interno do servidor.</response>
-    
+
     [HttpGet]
     public IActionResult GetAll()
     {

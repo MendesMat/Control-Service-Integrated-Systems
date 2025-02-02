@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Mendes.ControlService.ManagementAPI.Abstracts;
 using Mendes.ControlService.ManagementAPI.Data.Dtos.Proposal;
 using Mendes.ControlService.ManagementAPI.Interfaces;
@@ -6,23 +7,53 @@ using Mendes.ControlService.ManagementAPI.Models;
 
 namespace Mendes.ControlService.ManagementAPI.Services;
 
-public class ProposalService<TProposal, CreateDto, ReadDto, UpdateDto>
-    : ServiceBase<TProposal, CreateDto, ReadDto, UpdateDto>
+public class ProposalService<TProposal, TCreateDto, TReadDto, TUpdateDto>
+    : ServiceBase<TProposal, TCreateDto, TReadDto, TUpdateDto>
     where TProposal : Proposal
-    where UpdateDto : UpdateProposalDto
+    where TUpdateDto : UpdateProposalDto
 {
-    public ProposalService(IRepository<TProposal> repository, IMapper mapper) 
+    private readonly IValidator<TProposal> _validator;
+
+    public ProposalService(
+        IRepository<TProposal> repository, 
+        IMapper mapper,
+        IValidator<Proposal> validator) 
         : base(repository, mapper)
     {
+        _validator = validator;
     }
 
-    public override ReadDto Put(int id, UpdateDto dto)
+    public override TReadDto Post(TCreateDto dto)
+    {
+        var proposal = _mapper.Map<TProposal>(dto);
+        if(proposal != null) ValidateProposal(proposal);
+
+        return base.Post(dto);
+    }
+
+    public override IEnumerable<TReadDto> GetAll()
+    {
+        var proposals = _repository.GetAll(skip, take);
+
+        var result = _mapper.Map<IEnumerable<TReadDto>>(proposals);
+        return result;
+    }
+
+    public override TReadDto Put(int id, TUpdateDto dto)
     {
         var entity = _repository.Get(id);
 
-        if (entity != null)
-            dto.CustomerId = entity.CustomerId;
-
         return base.Put(id, dto);
+    }
+
+    private void ValidateProposal(TProposal proposal)
+    {
+        var validationResult = _validator.Validate(proposal);
+
+        if (!validationResult.IsValid)
+        {
+            var errors = string.Join("; ", validationResult.Errors.Select(e => e.ErrorMessage));
+            throw new ValidationException($"Erro de validação: {errors}");
+        }
     }
 }
