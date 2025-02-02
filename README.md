@@ -41,11 +41,11 @@ Esta API foi desenvolvida em **ASP.NET 9** para gerenciar informações de clien
 - **Propostas Comerciais**
 
   - `POST /managementApi/proposal` - Cria uma nova proposta.
-  - 
+    
   - `GET /managementApi/proposal` - Lista todas as propostas.
-  - 
+    
   - `GET /managementApi/proposal/{id}` - Obtém os detalhes de uma proposta específica.
-  - 
+    
   - `PUT /managementApi/proposal/{id}` - Atualiza uma proposta existente.
-  - 
+    
   - `DELETE /managementApi/proposal/{id}` - Remove uma proposta.
