@@ -8,20 +8,21 @@ Esta API foi desenvolvida em **ASP.NET 9** para gerenciar informações de clien
 - **Entity Framework Core**
   - `EntityFrameworkCore.SqlServer` (para integração com banco de dados SQL Server)
   - `EntityFrameworkCore.Tools` (para configuração e manipulação de dados)
-- **Swagger** (para documentação da API)
 - **Automapper** (para mapeamento de DTOs e entidades)
 - **FluentValidation** (para validação de dados de entrada)
 - **AspNetCore.OpenApi** (para geração de documentação OpenAPI)
+- **Swagger** (para documentação da API)
 
 ## Funcionalidades
 
 - **Clientes**
   - CRUD completo para manipulação de clientes.
-  - Campos para armazenar informações essenciais dos clientes.
+  - Validação das informações essenciais dos clientes, como CPF, CNPJ, email, entre outros.
 
 - **Propostas Comerciais**
   - CRUD completo para manipulação de propostas comerciais.
-  - Relacionamento de propostas com clientes, com a regra de 1 cliente para múltiplas propostas.
+  - Relacionamento de propostas com clientes, com a regra de 1 cliente para múltiplas propostas (1-N).
+  - Validação das informações essenciais das propostas, garantindo que o cliente e o cliente pagador sejam entidades distintas.
 
 ## Endpoints
 
