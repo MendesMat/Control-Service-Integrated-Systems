@@ -26,14 +26,17 @@ Esta API foi desenvolvida em **ASP.NET 9** para gerenciar informações de clien
 
 ## Endpoints
 
-- **Clientes (Pessoa Física e Jurídica)**
+- **Clientes**
 
+  Pessoa Física
   - `POST /managementApi/individualcustomer` - Cria um novo cliente pessoa física.
   - `PUT /managementApi/individualcustomer` - Atualiza um cliente pessoa física.
-  
+
+  Pessoa Jurídica
   - `POST /managementApi/companycustomer` - Cria um novo cliente pessoa jurídica.
   - `PUT /managementApi/companycustomer` - Atualiza um cliente pessoa jurídica.
-  
+
+  Todos os clientes
   - `GET /managementApi/allcustomers` - Lista todos os clientes.
   - `GET /managementApi/allcustomers/{id}` - Obtém os detalhes de um cliente específico.
   - `DELETE /managementApi/allcustomers/{id}` - Remove um cliente.
