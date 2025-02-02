@@ -1,10 +1,10 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
-using Mendes.ControlService.ManagementAPI.Data.Dtos;
+using Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 using Mendes.ControlService.ManagementAPI.Interfaces;
-using Mendes.ControlService.ManagementAPI.Models.Customers;
+using Mendes.ControlService.ManagementAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Mendes.ControlService.ManagementAPI.Controllers;
+namespace Mendes.ControlService.ManagementAPI.Controllers.Customers;
 
 /// <summary>
 /// Controlador para gerenciamento de clientes individuais.
@@ -19,12 +19,11 @@ public class IndividualCustomersController : CustomerControllerBase
     ReadCustomerDto,
     UpdateCustomerDto>
 {
-    public IndividualCustomersController(ICustomerService
-        <IndividualCustomer, 
-        CreateCustomerDto, 
-        ReadCustomerDto, 
-        UpdateCustomerDto> 
-        customerService) 
-        : base(customerService)
+    public IndividualCustomersController(IService
+        <IndividualCustomer,
+        CreateCustomerDto,
+        ReadCustomerDto,
+        UpdateCustomerDto>
+        customerService) : base(customerService)
     { }
 }

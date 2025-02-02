@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Mendes.ControlService.ManagementAPI.Abstracts;
-using Mendes.ControlService.ManagementAPI.Models.Customers;
+using Mendes.ControlService.ManagementAPI.Models;
 
 namespace Mendes.ControlService.ManagementAPI.Data.Context;
 
@@ -22,6 +22,7 @@ public class ManagementContext : DbContext
     /// </summary>
 
     public DbSet<CustomerBase> Customers { get; set; }
+    public DbSet<Proposal> Proposals { get; set; }
 
     /// <summary>
     /// Configuração do modelo de dados utilizando Fluent API.
@@ -32,8 +33,24 @@ public class ManagementContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<CustomerBase>()
-        .HasDiscriminator<string>("Type")
-        .HasValue<IndividualCustomer>("Individual")
-        .HasValue<CompanyCustomer>("Company");
+            .HasDiscriminator<string>("Type")
+            .HasValue<IndividualCustomer>("Individual")
+            .HasValue<CompanyCustomer>("Company");
+
+        builder.Entity<Proposal>()
+            .HasOne(p => p.Customer)
+            .WithMany()
+            .HasForeignKey(p => p.CustomerId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.Entity<Proposal>()
+            .HasOne(p => p.PayingEntity)
+            .WithMany()
+            .HasForeignKey(p => p.PayingEntityId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder.Entity<Proposal>()
+            .Property(p => p.Value)
+            .HasPrecision(18, 2); // Define a precisão e escala para decimal
     }
 }

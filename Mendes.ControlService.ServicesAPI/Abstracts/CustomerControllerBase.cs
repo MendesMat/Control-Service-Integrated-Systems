@@ -1,4 +1,4 @@
-﻿using Mendes.ControlService.ManagementAPI.Data.Dtos;
+﻿using Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 using Mendes.ControlService.ManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
@@ -18,10 +18,10 @@ public abstract class CustomerControllerBase
     <TCustomer, TCreateDto, TReadDto, TUpdateDto> : ControllerBase
     where TReadDto : ReadCustomerDto
 {
-    private readonly ICustomerService
+    private readonly IService
         <TCustomer, TCreateDto, TReadDto, TUpdateDto> _customerService;
 
-    protected CustomerControllerBase(ICustomerService
+    protected CustomerControllerBase(IService
         <TCustomer, TCreateDto, TReadDto, TUpdateDto> customerService)
     {
         _customerService = customerService;

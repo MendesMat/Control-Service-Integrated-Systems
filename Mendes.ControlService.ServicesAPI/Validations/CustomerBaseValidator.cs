@@ -8,11 +8,14 @@ public class CustomerBaseValidator : AbstractValidator<CustomerBase>
     public CustomerBaseValidator()
     {
         RuleFor(c => c.Name)
-            .NotEmpty().WithMessage("O nome é obrigatório.")
-            .MaximumLength(100).WithMessage("O nome não pode ter mais que 100 caracteres.");
+            .NotEmpty()
+            .WithMessage("O nome é obrigatório.")
+            .MaximumLength(100)
+            .WithMessage("O nome não pode ter mais que 100 caracteres.");
 
         RuleFor(c => c.Telephone1)
-            .Matches(@"^\d{10,11}$").WithMessage("O telefone deve conter 10 ou 11 dígitos.")
+            .Matches(@"^\d{10,11}$")
+            .WithMessage("O telefone deve conter 10 ou 11 dígitos.")
             .When(c => !string.IsNullOrEmpty(c.Telephone1));
 
         RuleFor(c => c.Telephone2)
@@ -20,22 +23,17 @@ public class CustomerBaseValidator : AbstractValidator<CustomerBase>
             .When(c => !string.IsNullOrEmpty(c.Telephone2));
 
         RuleFor(c => c.Email)
-            .EmailAddress().WithMessage("Email inválido.")
+            .Matches(@"^[^@\s]+@[^@\s]+\.[^@\s]+(\.[a-zA-Z]{2,})?$")
+            .WithMessage("Email deve ter um formato válido: exemplo@email.com ou exemplo@email.com.br.")
             .When(c => !string.IsNullOrEmpty(c.Email));
 
         RuleFor(c => c.Email2)
-            .EmailAddress().WithMessage("Email inválido.")
+            .Matches(@"^[^@\s]+@[^@\s]+\.[^@\s]+(\.[a-zA-Z]{2,})?$")
+            .WithMessage("Email deve ter um formato válido: exemplo@email.com ou exemplo@email.com.br.")
             .When(c => !string.IsNullOrEmpty(c.Email2));
 
         RuleFor(c => c.Cep)
             .Matches(@"^\d{8}$").WithMessage("O CEP deve conter 8 dígitos.")
             .When(c => !string.IsNullOrEmpty(c.Cep));
-
-        RuleFor(c => c.Address)
-            .MinimumLength(5).WithMessage("O endereço deve ter pelo menos 5 caracteres.")
-            .When(c => !string.IsNullOrEmpty(c.Address));
-
-        RuleFor(c => c.Number)
-            .GreaterThan(0).WithMessage("O número deve ser maior que zero.");
     }
 }

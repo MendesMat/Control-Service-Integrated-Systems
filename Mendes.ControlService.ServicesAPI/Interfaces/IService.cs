@@ -1,6 +1,6 @@
 ﻿namespace Mendes.ControlService.ManagementAPI.Interfaces;
 
-public interface ICustomerService<TCustomer, TCreateDto, TReadDto, TUpdateDto>
+public interface IService<TEntity, TCreateDto, TReadDto, TUpdateDto>
 {
     TReadDto Post(TCreateDto dto);
     TReadDto Get(int id);

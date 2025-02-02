@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Mendes.ControlService.ManagementAPI.Models.Customers;
+using Mendes.ControlService.ManagementAPI.Models;
 
 namespace Mendes.ControlService.ManagementAPI.Validations;
 

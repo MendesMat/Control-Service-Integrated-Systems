@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Mendes.ControlService.ManagementAPI.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mendes.ControlService.ManagementAPI.Abstracts;
 

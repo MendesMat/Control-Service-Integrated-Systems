@@ -1,9 +1,9 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
-using Mendes.ControlService.ManagementAPI.Data.Dtos;
+using Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 using Mendes.ControlService.ManagementAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Mendes.ControlService.ManagementAPI.Controllers;
+namespace Mendes.ControlService.ManagementAPI.Controllers.Customers;
 
 /// <summary>
 /// Controlador para gerenciar todos os tipos de clientes.
@@ -14,10 +14,10 @@ namespace Mendes.ControlService.ManagementAPI.Controllers;
 [Route("management/[controller]")]
 public class AllCustomersController : ControllerBase
 {
-    private readonly ICustomerService
+    private readonly IService
         <CustomerBase, CreateCustomerDto, ReadCustomerDto, UpdateCustomerDto> _customerService;
 
-    public AllCustomersController(ICustomerService
+    public AllCustomersController(IService
         <CustomerBase, CreateCustomerDto, ReadCustomerDto, UpdateCustomerDto> customerService)
     {
         _customerService = customerService;
@@ -51,7 +51,7 @@ public class AllCustomersController : ControllerBase
     /// <returns>Retorna a lista de todos os clientes.</returns>
     /// <response code="200">Lista de clientes retornada com sucesso.</response>
     /// <response code="500">Erro interno do servidor.</response>
-    
+
     [HttpGet]
     public IActionResult GetAll()
     {

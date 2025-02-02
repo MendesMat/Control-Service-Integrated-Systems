@@ -1,10 +1,10 @@
 ﻿using Mendes.ControlService.ManagementAPI.Abstracts;
-using Mendes.ControlService.ManagementAPI.Data.Dtos;
+using Mendes.ControlService.ManagementAPI.Data.Dtos.Customer;
 using Mendes.ControlService.ManagementAPI.Interfaces;
-using Mendes.ControlService.ManagementAPI.Models.Customers;
+using Mendes.ControlService.ManagementAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Mendes.ControlService.ManagementAPI.Controllers;
+namespace Mendes.ControlService.ManagementAPI.Controllers.Customers;
 
 /// <summary>
 /// Controlador para gerenciamento de clientes de empresas.
@@ -19,12 +19,11 @@ public class CompanyCustomersController : CustomerControllerBase
     ReadCustomerDto,
     UpdateCustomerDto>
 {
-    public CompanyCustomersController(ICustomerService
+    public CompanyCustomersController(IService
         <CompanyCustomer,
         CreateCustomerDto,
         ReadCustomerDto,
         UpdateCustomerDto>
-        customerService)
-        : base(customerService)
+        customerService) : base(customerService)
     { }
 }
