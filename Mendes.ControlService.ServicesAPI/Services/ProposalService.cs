@@ -31,17 +31,10 @@ public class ProposalService<TProposal, TCreateDto, TReadDto, TUpdateDto>
         return base.Post(dto);
     }
 
-    public override IEnumerable<TReadDto> GetAll()
-    {
-        var proposals = _repository.GetAll(skip, take);
-
-        var result = _mapper.Map<IEnumerable<TReadDto>>(proposals);
-        return result;
-    }
-
     public override TReadDto Put(int id, TUpdateDto dto)
     {
-        var entity = _repository.Get(id);
+        var proposal = _repository.Get(id);
+        if(proposal != null) ValidateProposal(proposal);
 
         return base.Put(id, dto);
     }

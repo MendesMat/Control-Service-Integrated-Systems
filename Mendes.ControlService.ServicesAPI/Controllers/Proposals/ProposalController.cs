@@ -75,6 +75,13 @@ public class ProposalController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Obtém todos as propostas cadastradas.
+    /// </summary>
+    /// <returns>Retorna a lista de todos as propostas.</returns>
+    /// <response code="200">Lista de clientes retornada com sucesso.</response>
+    /// <response code="500">Erro interno do servidor.</response>
+
     [HttpGet]
     public IActionResult GetAll()
     {
