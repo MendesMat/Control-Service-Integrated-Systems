@@ -7,7 +7,7 @@ Esta API foi desenvolvida em **ASP.NET 9** para gerenciar informações de clien
 - **ASP.NET Core 9**
 - **Entity Framework Core**
   - `EntityFrameworkCore.SqlServer` (para integração com banco de dados SQL Server)
-  - `EntityFrameworkCore.Cools` (para configuração e manipulação de dados)
+  - `EntityFrameworkCore.Tools` (para configuração e manipulação de dados)
 - **Swagger** (para documentação da API)
 - **Automapper** (para mapeamento de DTOs e entidades)
 - **FluentValidation** (para validação de dados de entrada)
