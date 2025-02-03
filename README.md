@@ -1,6 +1,6 @@
 # API de Gestão de Clientes e Propostas Comerciais
 
-Esta API foi desenvolvida em **ASP.NET 9** para gerenciar informações de clientes e propostas comerciais, com funcionalidades completas de CRUD (Create, Read, Update, Delete). Ela oferece uma solução para registro de clientes e propostas, com uma relação de **1 cliente para N propostas**.
+Esta API foi desenvolvida em **ASP.NET** para gerenciar informações de clientes e propostas comerciais, com funcionalidades completas de CRUD (Create, Read, Update, Delete). Ela oferece uma solução para registro de clientes e propostas, com uma relação de **1 cliente para N propostas**.
 
 ## Tecnologias Utilizadas
 
