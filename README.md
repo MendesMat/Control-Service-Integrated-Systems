@@ -1,54 +1,60 @@
-# API de Gestão de Clientes e Propostas Comerciais
+## Documentação da API
 
-Esta API foi desenvolvida em **ASP.NET** para gerenciar informações de clientes e propostas comerciais, com funcionalidades completas de CRUD (Create, Read, Update, Delete). Ela oferece uma solução para registro de clientes e propostas, com uma relação de **1 cliente para N propostas**.
+### Clientes
+Existem dois tipos distintos de clientes: **Pessoa Física** e **Pessoa Jurídica**. No entanto, ambos tem propriedades em comum. As propriedades dispostas abaixo pode ser utlizadas em operações de criação e atualização de qualquer tipo de cliente:
 
-## Tecnologias Utilizadas
+| Parâmetro | Requerido | Tipo | Descrição | Validação |
+| :- | :- | :- | :- | :- |
+| `Id` | **Sim** | `int` | Índice do cliente no banco de dados. | Não ser nulo | 
+| `Name` | **Sim** | `string` | O nome identificador do cliente. | Não ser nulo |
+| `Telephone1` | Não | `string` | Telefone do cliente | 10 ou 11 digitos numéricos |
+| `Telephone2` | Não | `string` | Telefone do cliente | 10 ou 11 digitos numéricos |
+| `Email1` | Não | `string` | Email do cliente | Formato de email válido |
+| `Email2` | Não | `string` | Email do cliente | Formato de email válido |
+| `CEP` | Não | `string` | Código de endereçamento | 8 dígitos numéricos |
+| `Address` | Não | `string` | Logradouro do cliente | Não aplicável |
+| `Number` | Não | `string` | Número do endereço | Não aplicável |
+| `Complement` | Não | `string` | Complemento do cliente | Não aplicável |
 
-- **ASP.NET Core 9**
-- **Entity Framework Core**
-  - `EntityFrameworkCore.SqlServer` (para integração com banco de dados SQL Server)
-  - `EntityFrameworkCore.Tools` (para configuração e manipulação de dados)
-- **Automapper** (para mapeamento de DTOs e entidades)
-- **FluentValidation** (para validação de dados de entrada)
-- **AspNetCore.OpenApi** (para geração de documentação OpenAPI)
-- **Swagger** (para documentação da API)
+### Pessoa Física
 
-## Funcionalidades
+#### Cria um cliente do tipo Pessoa Física
+```https
+POST /managementApi/IndividualCustomer
+```
+| Parâmetro | Requerido | Tipo | Descrição | Validação |
+| :- | :- | :- | :- | :- |
+| `CPF` | Não | `string` | Cadastro de pessoa física | 11 caracteres numéricos |
 
-- **Clientes**
-  - CRUD completo para manipulação de clientes.
-  - Validação das informações essenciais dos clientes, como CPF, CNPJ, email, entre outros.
 
-- **Propostas Comerciais**
-  - CRUD completo para manipulação de propostas comerciais.
-  - Relacionamento de propostas com clientes, com a regra de 1 cliente para múltiplas propostas (1-N).
-  - Validação das informações essenciais das propostas, garantindo que o cliente e o cliente pagador sejam entidades distintas.
+#### Atualiza um cliente - Pessoa Física
+```https
+PUT /managementApi/IndividualCustomer/{Id}
+```
 
-## Endpoints
+### Pessoa Jurídica
+```https
+POST /managementApi/CompanyCustomer
+```
+| Parâmetro | Requerido | Tipo | Descrição | Validação |
+| :- | :- | :- | :- | :- |
+| `LegalName` | Não | `string` | Razão social | Não aplicável |
+| `CNPJ` | Não | `string` | Cadastro de pessoa jurídica | 14 caracteres numéricos |
+| `MunicipalRegistration` | Não | `string` | Inscrição municipal | Não aplicável |
 
-- **Clientes**
+#### Atualiza um cliente - Pessoa Jurídica
+```https
+PUT /managementApi/companyCustomer/{Id}
+```
 
-  Pessoa Física
-  - `POST /managementApi/individualcustomer` - Cria um novo cliente pessoa física.
-  - `PUT /managementApi/individualcustomer` - Atualiza um cliente pessoa física.
+### Requisições comuns a todos os clientes
 
-  Pessoa Jurídica
-  - `POST /managementApi/companycustomer` - Cria um novo cliente pessoa jurídica.
-  - `PUT /managementApi/companycustomer` - Atualiza um cliente pessoa jurídica.
+#### Lista de todos os clientes cadastrados
+```https
+GET /managementApi/AllCustomers
+```
 
-  Todos os clientes
-  - `GET /managementApi/allcustomers` - Lista todos os clientes.
-  - `GET /managementApi/allcustomers/{id}` - Obtém os detalhes de um cliente específico.
-  - `DELETE /managementApi/allcustomers/{id}` - Remove um cliente.
-
-- **Propostas Comerciais**
-
-  - `POST /managementApi/proposal` - Cria uma nova proposta.
-    
-  - `GET /managementApi/proposal` - Lista todas as propostas.
-    
-  - `GET /managementApi/proposal/{id}` - Obtém os detalhes de uma proposta específica.
-    
-  - `PUT /managementApi/proposal/{id}` - Atualiza uma proposta existente.
-    
-  - `DELETE /managementApi/proposal/{id}` - Remove uma proposta.
+#### Retorna o cliente com id fornecido
+```https
+GET /managementApi/CompanyCustomer/{Id}
+```
