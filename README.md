@@ -58,3 +58,41 @@ GET /managementApi/AllCustomers
 ```https
 GET /managementApi/CompanyCustomer/{Id}
 ```
+
+#### Exclui o cliente com id fornecido
+```https
+DELETE /managementApi/companyCustomer/{Id}
+```
+
+### Propostas
+As propostas são serviços diretamente ligadas a um cliente, em um relacionamento de N:1 (Propostas:Cliente).
+
+#### Cria uma proposta
+```https
+POST /managementApi/Proposal
+```
+| Parâmetro | Requerido | Tipo | Descrição | Validação |
+| :- | :- | :- | :- | :- |
+| `Id` | Sim | `int` | Índice da proposta no banco de dados. | Não aplicável |
+| `CustomerId` | Sim | `int` | Índice do cliente atrelado no banco de dados. | Não aplicável |
+| `PayingEntityId` | Não | `int` | Índice do cliente responsável pelo pagamento no banco de dados. | Não deve ser igual a CustomerId |
+
+#### Atualiza um cliente - Pessoa Jurídica
+```https
+PUT /managementApi/companyCustomer/{Id}
+```
+
+#### Lista de todas as propostas cadastradas
+```https
+GET /managementApi/Proposal
+```
+
+#### Retorna a proposta com id fornecido
+```https
+GET /managementApi/Proposal/{Id}
+```
+
+#### Exclui a proposta com id fornecido
+```https
+DELETE /managementApi/Proposal/{Id}
+```
