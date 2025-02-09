@@ -9,12 +9,8 @@ public class CompanyCustomerValidator : AbstractValidator<CompanyCustomer>
     {
         Include(new CustomerBaseValidator());
 
-        RuleFor(c => c.LegalName)
-            .MinimumLength(2).WithMessage("O nome da empresa deve ter pelo menos 2 caracteres.")
-            .When(c => !string.IsNullOrEmpty(c.LegalName));
-
         RuleFor(c => c.Cnpj)
-            .NotEmpty().WithMessage("O CNPJ é obrigatório.")
-            .Matches(@"^\d{14}$").WithMessage("O CNPJ deve conter exatamente 14 dígitos numéricos.");
+            .Matches(@"^\d{14}$").WithMessage("O CNPJ deve conter exatamente 14 dígitos numéricos.")
+            .When(c => !string.IsNullOrEmpty(c.Cnpj));
     }
 }

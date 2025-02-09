@@ -10,7 +10,7 @@ public class IndividualCustomerValidator : AbstractValidator<IndividualCustomer>
         Include(new CustomerBaseValidator());
 
         RuleFor(c => c.Cpf)
-            .NotEmpty().WithMessage("O CPF é obrigatório.")
-            .Matches(@"^\d{11}$").WithMessage("O CPF deve conter exatamente 11 dígitos numéricos.");
+            .Matches(@"^\d{11}$").WithMessage("O CPF deve conter exatamente 11 dígitos numéricos.")
+            .When(c => !string.IsNullOrEmpty(c.Cpf));
     }
 }
